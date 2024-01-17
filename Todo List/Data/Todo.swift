@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Todo:Identifiable {
-    let id = UUID().uuidString
-    let title: String
+struct Todo: Identifiable, Hashable {
+    let id = UUID()
+    var title: String
     var isDone = false
-    var category: String?
 }
+

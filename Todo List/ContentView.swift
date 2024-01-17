@@ -6,66 +6,88 @@
 //
 
 import SwiftUI
-
 struct ContentView: View {
-    @State private var todos = [Todo(title: "Build an app"), Todo(title: "Lecture")]
+    @State private var categories = [Category(name: "Personal"), Category(name: "Work"), Category(name: "Shopping")]
     @State private var textInput = ""
-    @State private var selectedCategory: String?
-    @State private var categories = ["Personal", "Work", "Shopping"]
-    @State private var selectedTodo: Todo?
+    @State private var newCategoryName = ""
 
     var body: some View {
-        NavigationView {
-            VStack {
-                Picker("Select a category", selection: $selectedCategory) {
-                    ForEach(categories, id: \.self) { category in
-                        Text(category).tag(category)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
-
-                List {
-                    ForEach(filteredTodos) { todo in
-                        NavigationLink(destination: Details(todo: todo)) {
-                            HStack {
-                                Image(systemName: todo.isDone ? "checkmark.applewatch" : "applewatch")
-                                Text(todo.title)
+            NavigationView {
+                VStack {
+                    List {
+                        ForEach(categories, id: \.id) { category in
+                            NavigationLink(destination: CategoryView(category: category, categories: $categories)) {
+                                Text(category.name)
                             }
                         }
-                        .onTapGesture {
-                            if let index = todos.firstIndex(where: { $0.id == todo.id }) {
-                                todos[index].isDone.toggle()
-                            }
-                        }
+                        .onDelete(perform: { indexSet in
+                            categories.remove(atOffsets: indexSet)
+                        })
                     }
-                    .onDelete(perform: { indexSet in
-                        indexSet.forEach { index in
-                            todos.remove(at: index)
-                        }
-                    })
-                }
-                 
 
-                TextField("New todo...", text: $textInput)
-                    .onSubmit {
-                        todos.append(Todo(title: textInput, category: selectedCategory))
-                        textInput = ""
+                    TextField("New category...", text: $newCategoryName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+
+                    Button("Add Category") {
+                        if !newCategoryName.isEmpty {
+                            categories.append(Category(name: newCategoryName))
+                            newCategoryName = ""
+                        }
                     }
+                    .padding()
+
+                    Divider()
+
+                    if let selectedCategory = categories.first {
+                        CategoryView(category: selectedCategory, categories: $categories)
+                    }
+                }
+              
             }
-            .navigationTitle("My Todos")
         }
     }
 
-    var filteredTodos: [Todo] {
-        if let selectedCategory = selectedCategory {
-            return todos.filter { $0.category == selectedCategory }
-        } else {
-            return todos
+struct CategoryView: View {
+    var category: Category
+    @Binding var categories: [Category]
+    @State private var newTodoText = ""
+
+    var body: some View {
+        List {
+            ForEach(category.todos) { todo in
+                NavigationLink(destination: Details(todo: todo)) {
+                    HStack {
+                        Image(systemName: todo.isDone ? "checkmark.applewatch" : "applewatch")
+                        Text(todo.title)
+                    }
+                }
+                .onTapGesture {
+                    if let categoryIndex = categories.firstIndex(where: { $0.id == category.id }),
+                       let todoIndex = categories[categoryIndex].todos.firstIndex(where: { $0.id == todo.id }) {
+                        categories[categoryIndex].todos[todoIndex].isDone.toggle()
+                    }
+                }
+            }
+            .onDelete(perform: { indexSet in
+                if let categoryIndex = categories.firstIndex(where: { $0.id == category.id }) {
+                    categories[categoryIndex].todos.remove(atOffsets: indexSet)
+                }
+            })
+
+            TextField("New todo...", text: $newTodoText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .onSubmit {
+                    if let categoryIndex = categories.firstIndex(where: { $0.id == category.id }), !newTodoText.isEmpty {
+                        categories[categoryIndex].todos.append(Todo(title: newTodoText))
+                        newTodoText = ""
+                    }
+                }
         }
+        .navigationTitle(category.name)
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

@@ -15,6 +15,7 @@
 		620803F42B56CC1600E8DFFE /* Todo_ListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620803F32B56CC1600E8DFFE /* Todo_ListUITests.swift */; };
 		620803F62B56CC1600E8DFFE /* Todo_ListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620803F52B56CC1600E8DFFE /* Todo_ListUITestsLaunchTests.swift */; };
 		621913A62B5821A300665B98 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621913A52B5821A300665B98 /* Details.swift */; };
+		621913AA2B58355D00665B98 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621913A92B58355D00665B98 /* File.swift */; };
 		6268F2272B56FA4A00CCD26F /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6268F2262B56FA4A00CCD26F /* Todo.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		620803F32B56CC1600E8DFFE /* Todo_ListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_ListUITests.swift; sourceTree = "<group>"; };
 		620803F52B56CC1600E8DFFE /* Todo_ListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_ListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		621913A52B5821A300665B98 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
+		621913A92B58355D00665B98 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = "Todo List/File.swift"; sourceTree = SOURCE_ROOT; };
 		6268F2262B56FA4A00CCD26F /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 		6268F2252B56FA2100CCD26F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				621913A92B58355D00665B98 /* File.swift */,
 				6268F2262B56FA4A00CCD26F /* Todo.swift */,
 			);
 			path = Data;
@@ -273,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				621913AA2B58355D00665B98 /* File.swift in Sources */,
 				620803DA2B56CC1500E8DFFE /* ContentView.swift in Sources */,
 				6268F2272B56FA4A00CCD26F /* Todo.swift in Sources */,
 				621913A62B5821A300665B98 /* Details.swift in Sources */,

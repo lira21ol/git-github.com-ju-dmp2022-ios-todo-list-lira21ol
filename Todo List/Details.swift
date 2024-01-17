@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Details: View {
     var todo: Todo
-
+    
     var body: some View {
         VStack {
             Text("Todo :)")
