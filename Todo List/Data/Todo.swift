@@ -11,5 +11,5 @@ struct Todo:Identifiable {
     let id = UUID().uuidString
     let title: String
     var isDone = false
-    
+    var category: String?
 }
