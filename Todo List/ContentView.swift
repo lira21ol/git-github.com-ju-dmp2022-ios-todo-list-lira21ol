@@ -7,9 +7,11 @@
 
 import SwiftUI
 struct ContentView: View {
-    @State private var categories = [Category(name: "Personal"), Category(name: "Work"), Category(name: "Shopping")]
+
+    @State private var categories = [ Category (name: "Personal       👨‍💻"), Category(name: "Work             💼"), Category(name: "Shopping     💸")]
     @State private var textInput = ""
     @State private var newCategoryName = ""
+    @State private var isCategorySelected = false
 
     var body: some View {
             NavigationView {
@@ -22,31 +24,34 @@ struct ContentView: View {
                         }
                         .onDelete(perform: { indexSet in
                             categories.remove(atOffsets: indexSet)
+                            isCategorySelected = false
                         })
                     }
 
                     TextField("New category...", text: $newCategoryName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
 
                     Button("Add Category") {
                         if !newCategoryName.isEmpty {
                             categories.append(Category(name: newCategoryName))
                             newCategoryName = ""
                         }
-                    }
+                     }
                     .padding()
 
-                    Divider()
 
-                    if let selectedCategory = categories.first {
-                        CategoryView(category: selectedCategory, categories: $categories)
                     }
+                
+                .navigationTitle("✔Todo list✔")
+                
+                
+                    
                 }
               
             }
         }
-    }
+    
 
 struct CategoryView: View {
     var category: Category
@@ -85,8 +90,9 @@ struct CategoryView: View {
                     }
                 }
         }
-        .navigationTitle(category.name)
+        .navigationTitle("What todo? 🤔")
     }
+        
 }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
